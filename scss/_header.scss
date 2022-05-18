@@ -1,0 +1,74 @@
+.header{
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    h1{
+        margin-bottom: 0;
+        font-size: 3.5rem;
+    }
+    hr{
+        opacity: 0.5;
+        color: white;
+        width: 100%;
+    }
+    .users{
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        margin: 50px auto;
+        transition: 0.3s;
+        // position: relative;
+
+        .user{
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 2rem;
+            opacity: 0.5;
+            position: relative;
+            gap: 10px;
+            .player-name{
+                text-align: right;
+            }
+            &:after{
+                content: "";
+                position: absolute;
+                height: 2px;
+                width: 0%;
+                bottom: 0;
+                background-color: white;
+                transition: 0.3s;
+            }
+            &:first-of-type{
+                &:after{
+                    right: 0;
+                }
+            }
+            &:last-of-type{
+                &:after{
+                    left: 0;
+                }
+            }
+            &.active{
+                opacity: 1;
+                &:after{
+                    width: 100%;
+                }
+            }
+        }
+
+        
+        // &.turn-1::after{
+        //     transition: 0.3s;
+        //     left: 0;
+        // }
+        // &.turn-2::after{
+        //     transition: 0.3s;
+        //     right: 0;
+        // }
+    }
+}

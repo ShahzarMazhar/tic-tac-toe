@@ -3,23 +3,6 @@
           box-sizing: border-box;
 }
 
-body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  background-color: #53a1b8;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-}
-
 .welcome {
   position: fixed;
   height: 100vh;
@@ -35,18 +18,34 @@ body {
           justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
 }
 
 .welcome .welcome-model {
   background-color: white;
   border-radius: 5px;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: 'visible';
+  overflow: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
-.welcome .welcome-model header {
+.welcome .welcome-model .p1, .welcome .welcome-model .p2 {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: visible;
+}
+
+.welcome .welcome-model .p1 header, .welcome .welcome-model .p2 header {
   text-align: center;
 }
 
-.welcome .welcome-model form {
+.welcome .welcome-model .p1 form, .welcome .welcome-model .p2 form {
   margin: 10px;
   padding: 20px;
   display: -webkit-box;
@@ -60,7 +59,7 @@ body {
       align-self: center;
 }
 
-.welcome .welcome-model form .input {
+.welcome .welcome-model .p1 form .input, .welcome .welcome-model .p2 form .input {
   position: relative;
   font-size: 1.2rem;
   text-align: left;
@@ -69,7 +68,7 @@ body {
   accent-color: #53a1b8;
 }
 
-.welcome .welcome-model form .input input[type=text] {
+.welcome .welcome-model .p1 form .input input[type=text], .welcome .welcome-model .p2 form .input input[type=text] {
   font-size: 1.2rem;
   position: relative;
   width: 100%;
@@ -81,7 +80,7 @@ body {
   border-bottom: 2px solid #c7c7c7;
 }
 
-.welcome .welcome-model form .input input[type=text] + label {
+.welcome .welcome-model .p1 form .input input[type=text] + label, .welcome .welcome-model .p2 form .input input[type=text] + label {
   position: absolute;
   text-transform: uppercase;
   left: 6px;
@@ -92,15 +91,15 @@ body {
   transition: 0.3s;
 }
 
-.welcome .welcome-model form .input input[type=text]:invalid:not(:placeholder-shown):not(:focus) {
+.welcome .welcome-model .p1 form .input input[type=text]:invalid:not(:placeholder-shown):not(:focus), .welcome .welcome-model .p2 form .input input[type=text]:invalid:not(:placeholder-shown):not(:focus) {
   background-color: #ffcbcb;
 }
 
-.welcome .welcome-model form .input input[type=text]:invalid:focus:not(:placeholder-shown) ~ .requirement {
+.welcome .welcome-model .p1 form .input input[type=text]:invalid:focus:not(:placeholder-shown) ~ .requirement, .welcome .welcome-model .p2 form .input input[type=text]:invalid:focus:not(:placeholder-shown) ~ .requirement {
   height: 50px;
 }
 
-.welcome .welcome-model form .input input[type=text]:focus + label, .welcome .welcome-model form .input input[type=text]:not(:placeholder-shown) + label {
+.welcome .welcome-model .p1 form .input input[type=text]:focus + label, .welcome .welcome-model .p2 form .input input[type=text]:focus + label, .welcome .welcome-model .p1 form .input input[type=text]:not(:placeholder-shown) + label, .welcome .welcome-model .p2 form .input input[type=text]:not(:placeholder-shown) + label {
   color: #53a1b8;
   opacity: 1;
   -webkit-transform: translateY(-180%);
@@ -108,11 +107,11 @@ body {
   font-size: 0.8rem;
 }
 
-.welcome .welcome-model form .input input[type=text]:focus + label span, .welcome .welcome-model form .input input[type=text]:not(:placeholder-shown) + label span {
+.welcome .welcome-model .p1 form .input input[type=text]:focus + label span, .welcome .welcome-model .p2 form .input input[type=text]:focus + label span, .welcome .welcome-model .p1 form .input input[type=text]:not(:placeholder-shown) + label span, .welcome .welcome-model .p2 form .input input[type=text]:not(:placeholder-shown) + label span {
   font-size: 0.8em;
 }
 
-.welcome .welcome-model form .input:first-of-type::after {
+.welcome .welcome-model .p1 form .input:first-of-type::after, .welcome .welcome-model .p2 form .input:first-of-type::after {
   content: "";
   height: 3px;
   width: 100%;
@@ -126,15 +125,15 @@ body {
   transition: 0.3s;
 }
 
-.welcome .welcome-model form .input:first-of-type:focus-within::after {
+.welcome .welcome-model .p1 form .input:first-of-type:focus-within::after, .welcome .welcome-model .p2 form .input:first-of-type:focus-within::after {
   width: 100%;
 }
 
-.welcome .welcome-model form .input:first-of-type:focus-within:not(.input-phone)::after {
+.welcome .welcome-model .p1 form .input:first-of-type:focus-within:not(.input-phone)::after, .welcome .welcome-model .p2 form .input:first-of-type:focus-within:not(.input-phone)::after {
   width: 100%;
 }
 
-.welcome .welcome-model form .input button {
+.welcome .welcome-model .p1 form .input button, .welcome .welcome-model .p2 form .input button {
   font-size: 1.2rem;
   width: 100%;
   padding: 8px;
@@ -144,12 +143,12 @@ body {
   cursor: pointer;
 }
 
-.welcome .welcome-model form .input button:hover {
+.welcome .welcome-model .p1 form .input button:hover, .welcome .welcome-model .p2 form .input button:hover {
   -webkit-filter: brightness(110%);
           filter: brightness(110%);
 }
 
-.welcome .welcome-model form .input-AI-1 {
+.welcome .welcome-model .p1 form .input-AI, .welcome .welcome-model .p2 form .input-AI {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -162,23 +161,43 @@ body {
   transition: 0.3s;
 }
 
-.welcome .welcome-model form .input-AI-1 .diff {
+.welcome .welcome-model .p1 form .input-AI [type="checkbox"], .welcome .welcome-model .p2 form .input-AI [type="checkbox"] {
+  cursor: pointer;
+}
+
+.welcome .welcome-model .p1 form .input-AI .difficulty, .welcome .welcome-model .p2 form .input-AI .difficulty {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   width: 100%;
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.welcome .welcome-model form .input-AI-1 .diff select {
+.welcome .welcome-model .p1 form .input-AI .difficulty select, .welcome .welcome-model .p2 form .input-AI .difficulty select {
   padding: 5px;
   outline: none;
   background-color: white;
   border-color: #c7c7c7;
 }
 
-.welcome .welcome-model form .input-AI-1 .diff select option {
+.welcome .welcome-model .p1 form .input-AI .difficulty select option, .welcome .welcome-model .p2 form .input-AI .difficulty select option {
   text-align: center;
+}
+
+.welcome .welcome-model .p2 form .input-AI .diff {
+  display: initial;
+}
+
+.translateX-100 {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+
+.translateX100 {
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
 }
 
 .header {
@@ -211,7 +230,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 300px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -237,6 +255,11 @@ body {
   font-size: 2rem;
   opacity: 0.5;
   position: relative;
+  gap: 10px;
+}
+
+.header .users .user .player-name {
+  text-align: right;
 }
 
 .header .users .user:after {
@@ -343,6 +366,8 @@ main {
           justify-content: center;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   display: none;
 }
 
@@ -375,4 +400,23 @@ main {
 .result .result-model button:hover {
   -webkit-filter: brightness(110%);
           filter: brightness(110%);
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #53a1b8;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
 }

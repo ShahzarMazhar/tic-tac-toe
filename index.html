@@ -6,78 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.6.96/css/materialdesignicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/main.min.css">
+    <link rel="stylesheet" href="/css/styles.min.css">
 </head>
 <body>
     <section class="welcome">
         <div class="welcome-model">
-            <header>
-                <h2><span class="mdi mdi-account mdi-48px"></span></h2>
-                <h4>Symbol: <span class="mdi mdi-close"></span></h4>
-            </header>
-            <form action="">
-                <div class="input input-name-1">
-                    <input type="text" name="name_p1" id="name_p1" placeholder=" " autofocus>
-                    <label for="name_p1">Name</label>
-                </div>
-                <!-- <div class="input input-symbol-1">
-                    <input type="text" name="symbol_p1" id="symbol_p1">
-                    <label for="symbol_p1">Symbol: </label>
-                </div> -->
-                <div class="input input-AI-1">
-                    <div class="checkbox">
-                        <input type="checkbox" name="AI_p1" id="AI_p1">
-                        <label for="AI_p1">AI</label>
+            <div class="p1">
+                <header>
+                    <h2><span class="mdi mdi-account mdi-48px"></span></h2>
+                    <h4>Symbol: <span class="mdi mdi-close"></span></h4>
+                </header>
+                <form action="">
+                    <div class="input input-name">
+                        <input type="text" name="name" id="name" placeholder=" ">
+                        <label for="name">Name</label>
                     </div>
-                    <div class="diff">
-                        <select class="input input-diff-1">
-                            <optgroup label="Difficulty:">
-                                <option value="1" selected>Easy</option>
-                                <option value="2">Medium</option>
-                                <option value="3">Hard</option>
-                            </optgroup>
-                        </select>
+                    <div class="input input-AI">
+                        <div class="checkbox">
+                            <input type="checkbox" data-id="1" name="AI" id="AI">
+                            <label for="AI">AI</label>
+                        </div>
+                        <div class="difficulty">
+                            <select class="input input-difficulty" name="difficulty">
+                                <optgroup label="Difficulty:">
+                                    <option value="1" selected>Easy</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Hard</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="input input-submit">
-                    <button class="start">Save & Next</button>
-                </div>
-            </form>
+                    <div class="input input-submit">
+                        <button class="start">Save & Next</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
-    <header class="header">
-        <h1>Tic Tac Toe</h1>
-        <hr>
-        <div class="users">
-            <div class="user player-1 active">
-                <span class="mdi mdi-account"></span>
-                <span class="mdi mdi-close"></span>
+<header class="header">
+    <h1>Tic Tac Toe</h1>
+    <hr>
+    <div class="users">
+        <!-- <header class="header">
+            <h1>Tic Tac Toe</h1>
+            <hr>
+            <div class="users">
+                <div class="user player-1 active">
+                    <span class="mdi mdi-account"></span>
+                    <span class="player-name">Player 1</span>
+                </div>
+                <div class="user player-2">
+                    <span class="mdi mdi-robot"></span>
+                    <span class="player-name">Player 2</span>
+                </div>
             </div>
-            <div class="user player-2">
-                <span class="mdi mdi-robot"></span>
-                <span class="mdi mdi-circle-outline"></span>
-            </div>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            <div class="box box-1" data-id="0"></div>
-            <div class="box box-2" data-id="1"></div>
-            <div class="box box-3" data-id="2"></div>
-            <div class="box box-4" data-id="3"></div>
-            <div class="box box-5" data-id="4"></div>
-            <div class="box box-6" data-id="5"></div>
-            <div class="box box-7" data-id="6"></div>
-            <div class="box box-8" data-id="7"></div>
-            <div class="box box-9" data-id="8"></div>
-        </div>
-    </main>
+        </header>  -->
+    </div>
+</header>
+<main>
+    <div class="container">
+        <!-- <div class="box box-1" data-id="0"></div>
+        <div class="box box-2" data-id="1"></div>
+        <div class="box box-3" data-id="2"></div>
+        <div class="box box-4" data-id="3"></div>
+        <div class="box box-5" data-id="4"></div>
+        <div class="box box-6" data-id="5"></div>
+        <div class="box box-7" data-id="6"></div>
+        <div class="box box-8" data-id="7"></div>
+        <div class="box box-9" data-id="8"></div> -->
+    </div>
+</main>
+
     <section class="result">
         <div class="result-model">
             <h2>{You Win}</h2>
             <button class="restart">Play Again</button>
         </div>
     </section>
-    <script src="./js/script.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
