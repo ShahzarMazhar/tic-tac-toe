@@ -212,7 +212,7 @@ const GameBoard = (() => {
             const box = createElements('div');
             addAttributes('class', [box, `box box-${i}`]);
             addAttributes('data-id', [box, i]);
-            box.addEventListener('click', Game.play);
+            box.addEventListener('click', Game.human_play);
             container.appendChild(box);
         }
 
@@ -244,11 +244,7 @@ const GameBoard = (() => {
 
 const Game = (() => {
     let activePlayer;
-
-    const getRandom = (max=Number, min=0) => {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     const render = (element) => {
         const icon = document.createElement('span');
@@ -259,16 +255,13 @@ const Game = (() => {
 
     const showResult = result => {
         const resultDisplay = document.querySelector('.result');
+        const resultDisplayModel = resultDisplay.querySelector('.result-model');
         const msg = resultDisplay.querySelector('h2');
         const button = resultDisplay.querySelector('button');
         const str = (result == "Draw!") ? "Draw!" : `${result.toUpperCase()} Won!` ;
         msg.textContent = str;
-        resultDisplay.style.display = 'flex';
-        button.addEventListener('click', () => {
-            resultDisplay.style.display = 'none';
-            setup();
-            GameBoard.setup();
-        })
+        resultDisplayModel.classList.remove('translateY130');
+        button.addEventListener('click', replay)
     }
 
 
@@ -283,6 +276,7 @@ const Game = (() => {
             showResult(playerName);
             return;
         }
+        changePlayer();
     }
 
     const changePlayer = () => {
@@ -298,30 +292,31 @@ const Game = (() => {
             player2_profile.classList.remove('active');
             player1_profile.classList.add('active');
          }
-
-         ai_play();
+         
+        sleep(1000).then(() => ai_play());
     }
 
     const ai_play = () => {
-        if(GameBoard.getWinner()) return;
-        setTimeout(() => {
-            const ai = (activePlayer == 'X') ? Players.getPlayer(0).ai : Players.getPlayer(1).ai;
-            if(ai){
-                const randomNum = () => {
-                    const random = getRandom(8);
-                    if(GameBoard.emptySlots().includes(random)){
-                        return random;
-                    }else{
-                        return randomNum();
-                    }
-                };
-                const target = document.querySelector(`.box-${randomNum()}`);
-                play({target});
+        const emptySlots = GameBoard.emptySlots();
+        // if(GameBoard.getWinner()) return;
+        if(emptySlots.length == 0) return;
+            const active = (activePlayer == 'X') ? Players.getPlayer(0) : Players.getPlayer(1);
+            if(active.ai){
+                const ai_choice = AI.getChoice(1, activePlayer, emptySlots);
+                console.log(ai_choice)
+                const target = document.querySelector(`.box-${ai_choice}`);
+                
+                play({target, type: 'click'});
+                
             }
-        }, 500);
     }
     
-    
+    const human_play = (event) => {
+        const ai = (activePlayer == 'X') ? Players.getPlayer(0).ai : Players.getPlayer(1).ai;
+        if(!ai){
+            play(event);
+        }
+    }
 
     const play = (event) => {
         if(GameBoard.getWinner()) return;
@@ -329,9 +324,6 @@ const Game = (() => {
         GameBoard.update_gameBoard(event.target.getAttribute('data-id'), activePlayer);
         event.target.removeEventListener(event.type, play);
         announceWinner();
-        changePlayer();
-        // console.log(event)
-        // console.log(event.target)
 
     }
 
@@ -339,5 +331,50 @@ const Game = (() => {
         activePlayer = 'X'
         ai_play();
     }
-    return {setup, play}
+
+    const replay = (event) => {
+        const resultDisplay = document.querySelector('.result .result-model');
+        resultDisplay.classList.add('translateY130')
+        GameBoard.setup();
+        setup();
+        event.target.removeEventListener(event.type, replay);
+    }
+    return {setup, human_play}
+})();
+
+const AI =(() => {
+
+    const getRandom = (max=Number, min=0) => {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    const easy = (emptySlots) => {
+        return (() => {
+            const num = getRandom(8);
+            if(emptySlots.includes(num)){
+                console.log(emptySlots);
+                return num;
+            }else{
+                return easy(emptySlots);
+            }
+        })();
+    }
+    const medium = () => {
+
+    }
+    const hard = (activePlayer, emptySlots) => {
+        
+
+    }
+    const getChoice = (difficulty, activePlayer, emptySlots) => {
+
+        switch(difficulty){
+            case 3: return hard();
+            case 2: return medium();
+            case 1: return easy(emptySlots);
+            default: alert('something went wrong');
+        }
+
+    }
+    return { getChoice }
 })();

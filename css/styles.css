@@ -351,24 +351,17 @@ main {
 }
 
 .result {
-  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
-  height: 100vh;
   width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  -webkit-backdrop-filter: blur(3px);
-          backdrop-filter: blur(3px);
-  display: none;
+  bottom: 30px;
 }
 
 .result .result-model {
@@ -386,6 +379,8 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .result .result-model button {
@@ -400,6 +395,11 @@ main {
 .result .result-model button:hover {
   -webkit-filter: brightness(110%);
           filter: brightness(110%);
+}
+
+.translateY130 {
+  -webkit-transform: translateY(130%);
+          transform: translateY(130%);
 }
 
 body {

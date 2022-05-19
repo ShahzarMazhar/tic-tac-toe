@@ -1,14 +1,14 @@
 .result{
-    background-color: rgba(0, 0, 0, 0.5);
+    // background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
-    height: 100vh;
+    // height: 100vh;
     width: 100vw;
     display: flex;
-    align-items: center;
+    // align-items: center;
     justify-content: center;
     transition: 0.3s;
-    backdrop-filter: blur(3px);
-    display: none;
+    bottom: 30px;
+    // display: none;
 
     .result-model{
         background-color: white;
@@ -18,6 +18,8 @@
         flex-direction: column;
         gap: 5px;
         align-items: center;
+        transition: 0.3s;
+        // transform: translateY(130%);
 
 
         button{
@@ -27,11 +29,13 @@
             border: none;
             color: white;
             cursor: pointer;
-            // width: 50%;
 
             &:hover{
                 filter: brightness(110%);
             }
         }
     }
+}
+.translateY130{
+    transform: translateY(130%);
 }
