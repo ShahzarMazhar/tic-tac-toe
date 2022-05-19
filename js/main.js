@@ -210,7 +210,7 @@ const GameBoard = (() => {
 
         for(let i = 0; i < 9; i++){
             const box = createElements('div');
-            addAttributes('class', [box, 'box']);
+            addAttributes('class', [box, `box box-${i}`]);
             addAttributes('data-id', [box, i]);
             box.addEventListener('click', Game.play);
             container.appendChild(box);
@@ -227,17 +227,28 @@ const GameBoard = (() => {
 
     const getWinner = () => {
         return winner
+    }; 
+
+    const emptySlots = () => {
+        const result = [];
+        for (let i = 0; i < 9; i++){
+            if(!gameBoard[i]){
+                result.push(i);
+            }
+        }
+        return result
     };    
 
-    return{setup, update_gameBoard, getWinner, findWinner}
+    return{setup, update_gameBoard, getWinner, findWinner, emptySlots}
 })();
 
 const Game = (() => {
     let activePlayer;
 
-    const setup = () => {
-        activePlayer = 'X'
+    const getRandom = (max=Number, min=0) => {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
 
     const render = (element) => {
         const icon = document.createElement('span');
@@ -254,9 +265,9 @@ const Game = (() => {
         msg.textContent = str;
         resultDisplay.style.display = 'flex';
         button.addEventListener('click', () => {
-            GameBoard.setup();
-            setup();
             resultDisplay.style.display = 'none';
+            setup();
+            GameBoard.setup();
         })
     }
 
@@ -270,7 +281,7 @@ const Game = (() => {
         if(winner.winnerSymbol != undefined){
             const playerName = (winner.winnerSymbol == 'X') ? Players.getPlayer(0).playerName : Players.getPlayer(1).playerName;
             showResult(playerName);
-            console.log(playerName);
+            return;
         }
     }
 
@@ -287,18 +298,46 @@ const Game = (() => {
             player2_profile.classList.remove('active');
             player1_profile.classList.add('active');
          }
-    
+
+         ai_play();
     }
 
+    const ai_play = () => {
+        if(GameBoard.getWinner()) return;
+        setTimeout(() => {
+            const ai = (activePlayer == 'X') ? Players.getPlayer(0).ai : Players.getPlayer(1).ai;
+            if(ai){
+                const randomNum = () => {
+                    const random = getRandom(8);
+                    if(GameBoard.emptySlots().includes(random)){
+                        return random;
+                    }else{
+                        return randomNum();
+                    }
+                };
+                const target = document.querySelector(`.box-${randomNum()}`);
+                play({target});
+            }
+        }, 500);
+    }
+    
+    
 
     const play = (event) => {
         if(GameBoard.getWinner()) return;
         render(event.target)
         GameBoard.update_gameBoard(event.target.getAttribute('data-id'), activePlayer);
-        announceWinner();
         event.target.removeEventListener(event.type, play);
+        announceWinner();
         changePlayer();
+        // console.log(event)
+        // console.log(event.target)
 
+    }
+
+    const setup = () => {
+        activePlayer = 'X'
+        ai_play();
     }
     return {setup, play}
 })();
